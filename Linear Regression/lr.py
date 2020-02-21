@@ -7,11 +7,6 @@ X = dataset[0]
 y = dataset[1]
 m = y.size
 
-plt.scatter(X, y, color = 'red')
-plt.xlabel('X')
-plt.ylabel('Y')
-plt.show()
-
 X = np.stack([np.ones(m), X], axis=1)
 
 def costFunction(x, y, theta):
