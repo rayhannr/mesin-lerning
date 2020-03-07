@@ -7,6 +7,8 @@ iris = datasets.load_iris()
 X = iris.data[:, :2]  # we only take the first two features.
 y = iris.target
 
+X = np.append(np.ones((X.shape[0],1)),X,axis=1)
+
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0, stratify=y)
 
@@ -54,5 +56,17 @@ for i, j in enumerate(np.unique(y_set)):
 plt.title('Logistic Regression (Test set)')
 plt.xlabel('sepal length(cm)')
 plt.ylabel('sepal width(cm)')
+plt.legend()
+plt.show()
+
+y0_train = y_train.copy()
+y0_train[y0_train > 0] = 3
+y0_train[y0_train == 0] = 1
+y0_train[y0_train == 3] = 0
+plt.scatter(X_train[y0_train == 1 ,1], X_train[y0_train == 1 ,2], s=15, color="purple", label="0")
+plt.scatter(X_train[y0_train == 0 ,1], X_train[y0_train == 0 ,2], s=15, color="orange", label="1")
+theta = coef[0]
+y_plot = (-1 * theta[0] - theta[1] * X_train[: ,1]) / theta[2]
+plt.plot(X_train[: ,1], y_plot)
 plt.legend()
 plt.show()
